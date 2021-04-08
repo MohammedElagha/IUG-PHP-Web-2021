@@ -3,11 +3,38 @@ include_once('style.php');
 include_once('appJS.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-	$name = $_POST['name'];
-	$birth_date = $_POST['birth_date'];
-	$nationality = $_POST['nationality'];
+	# exist, not empty, format
+	# required = exist + not empty
 
-	// $id = $_GET['id'];
+	# exist -> isset
+	# not empty -> !empty
+	# required -> isset + !empty OR !empty
+
+
+	if (isset($_POST['name']) && isset($_POST['birth_date']) && isset($_POST['email'])) {
+		$name = $_POST['name'];
+		$birth_date = $_POST['birth_date'];
+		$email = $_POST['email'];
+
+		if (!empty($name) && !empty($birth_date) && !empty($email)) {
+			if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+				$nationality = $_POST['nationality'];
+
+				$id = $_GET['id'];
+
+				$gender = $_POST['gender'];		# m OR f
+
+
+				if (isset($_POST['agree']) && $_POST['agree'] == 'YES') {
+					$agree = true;
+				} else {
+					$agree = false;
+				}
+			}
+		}
+	}
+
+	
 }
 ?>
 
@@ -21,10 +48,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	<div class="container">
 		<div class="row">
 			<div class="col-12">
-				<form action="" method="POST">
+				<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) . '?id=564544'; ?>" method="POST" id="my-form">
 					<div class="form-group">
-						<label for="id">Name</label>
+						<label for="name">Name</label>
 						<input type="text" name="name" id="name" class="form-control">
+					</div>
+
+					<div class="form-group">
+						<label for="email">Email</label>
+						<input type="text" name="email" id="email" class="form-control">
 					</div>
 
 					<div class="form-group">
@@ -41,7 +73,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 						</select>
 					</div>
 
-					<button class="btn btn-primary" type="submit">Save</button>
+					<div class="form-group">
+						<label>Gender</label>
+
+						<input type="radio" name="gender" value="m" class="radio" checked> Male
+						<input type="radio" name="gender" value="f" class="radio"> Female
+					</div>
+
+					<div class="form-group">
+						<label>Are you agree on privacy policy?</label>
+						<input type="checkbox" name="agree" value="YES">
+					</div>
+
+					<button class="btn btn-primary" type="button" id="save-btn">Save</button>
 				</form>
 			</div>
 		</div>
@@ -55,3 +99,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 </body>
 </html>
+
+<script type="text/javascript">
+	$('#save-btn').click(function (event) {
+		event.preventDefault();
+
+		var result = confirm("Are you sure?");
+
+		if (result == true) {
+			$('#my-form').submit();
+		}
+	});
+</script>
