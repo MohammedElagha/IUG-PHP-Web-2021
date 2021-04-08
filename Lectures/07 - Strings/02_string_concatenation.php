@@ -12,7 +12,7 @@ $price = 15.14;
 
 $str = 'Price is ' . $price;
 $str = 'Price is ' . strval($price);
-$str = strval($price) ' $ price';
+$str = strval($price) . ' $ price';
 
 echo $str;
 

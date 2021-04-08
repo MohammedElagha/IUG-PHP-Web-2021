@@ -1,6 +1,14 @@
 <?php
 include_once('style.php');
 include_once('appJS.php');
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+	$name = $_POST['name'];
+	$birth_date = $_POST['birth_date'];
+	$nationality = $_POST['nationality'];
+
+	// $id = $_GET['id'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +21,7 @@ include_once('appJS.php');
 	<div class="container">
 		<div class="row">
 			<div class="col-12">
-				<form action="actions/action.php?id=45124654" method="POST">
+				<form action="" method="POST">
 					<div class="form-group">
 						<label for="id">Name</label>
 						<input type="text" name="name" id="name" class="form-control">
