@@ -27,7 +27,7 @@ include_once('includes/DB_connection.php');
 	<div class="container">
 
 		<div class="row">
-			<a href="students.php">View Students</a>
+			<a href="students_paging.php">View Students</a>
 		</div>
 		
 

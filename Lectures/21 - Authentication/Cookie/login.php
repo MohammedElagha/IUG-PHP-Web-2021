@@ -22,16 +22,17 @@ include_once('includes/appJS.php');
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$username = $_POST['username'];
 			$password = $_POST['password'];
-			$enc_password = md5($password);
 
-			$query = "select * from users where username = '$username' AND password = '$enc_password'";
+			$query = "select * from users where username = '$username' AND password = '$password'";
 			$result = mysqli_query($connection, $query);
 
-			if (mysqli_num_rows($result) > 0) {
-				session_start();
-				$_SESSION['is_login'] = true;
+			var_dump($result);
 
-				header("Location: http://localhost/Web2021Course/Lectures/21 - Authentication/Session/content_page_1.php");
+			if (mysqli_num_rows($result) > 0) {
+				// login
+				setcookie('is_login', true, time() + 80000);
+
+				header("Location: http://localhost/Web2021Course/Lectures/21 - Authentication/Cookie/content_page_1.php");
 			} else {
 				echo '<div class=row><div class="col-12"><div class="alert alert-danger">Failed</div></div></div>';
 			}
